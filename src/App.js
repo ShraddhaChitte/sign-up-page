@@ -33,8 +33,8 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Login from "./components/Register.component";
-import SignUp from "./components/signup.component";
-import CounselorInfo from "./components/CounselorInfo";
+// import SignUp from "./components/signup.component";
+// import CounselorInfo from "./components/CounselorInfo";
 
 function App() {
   return (<Router>
