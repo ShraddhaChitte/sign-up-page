@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import firebase from "firebase";
 
+import FileUploader from "react-firebase-file-uploader";
 
  class Login extends Component {
   constructor(props){
@@ -7,7 +9,11 @@ import React, { Component } from "react";
 
     this.state = {
       fields: {},
-      errors: {}
+      errors: {},
+      avatar: "",
+    isUploading: false,
+    progress: 0,
+    avatarURL: ""
   }
 }
     // fname: "",
@@ -200,6 +206,24 @@ import React, { Component } from "react";
         this.setState({ [e.target.name]: e.target.value });
      }
   };
+
+  handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
+  handleProgress = progress => this.setState({ progress });
+  handleUploadError = error => {
+    this.setState({ isUploading: false });
+    console.error(error);
+  };
+  handleUploadSuccess = filename => {
+    this.setState({ avatar: filename, progress: 100, isUploading: false });
+    firebase
+      .storage()
+      .ref("images")
+      .child(filename)
+      .getDownloadURL()
+      .then(url => this.setState({ avatarURL: url }));
+  };
+
+
     render() {
       const { fileName } = this.state;
       let file = null;
@@ -294,7 +318,7 @@ import React, { Component } from "react";
 
 <div className="row">
 <div className="custom-file">
-          <input
+          {/* <input
             type="file"
              placeholder="Your Id Proof"
             id="file" class="custom-file-input"
@@ -302,15 +326,58 @@ import React, { Component } from "react";
             onChange={  (event) => this.onChange(event)} 
             // onChange={this.handleChange.bind(this, "file")} 
             value={this.state.fields["file"]} 
-              required/>
+                       required>
+                       </input> */}
 
+ <FileUploader
+ id="file"
+  class="custom-file-input"
+ ref="file"
+  // name="selectedFile" 
+//  onChange={  (event) => this.onChange(event)} 
+ // onChange={this.handleChange.bind(this, "file")} 
+ value={this.state.fields["file"]} 
+            required
+            accept="file/*"
+            name="avatar"
+            randomizeFilename
+            storageRef={firebase.storage().ref("images")}
+            onUploadStart={this.handleUploadStart}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
+          />
 
-          <label style={{marginBottom:"1px"}}  onChange={this.handleChange.bind(this, "file")} 
+          <label style={{marginBottom:"1px"}} 
+           onChange={this.handleChange.bind(this, "file")} 
             className="form-control form-control-sm custfile custom-file-label"
-            htmlFor="validatedCustomFile" placeholder="Your Id Proof"
+            htmlFor="validatedCustomFile" placeholder="Your Id Proof" 
           >
             Your Id Proof
+            {/* <FileUploader
+            accept="file/*"
+            name="avatar"
+            randomizeFilename
+            storageRef={firebase.storage().ref("images")}
+            onUploadStart={this.handleUploadStart}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
+          /> */}
           </label>
+
+          {/* {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
+          {this.state.avatarURL && <img src={this.state.avatarURL} />} */}
+          {/* <FileUploader
+            accept="file/*"
+            name="avatar"
+            randomizeFilename
+            storageRef={firebase.storage().ref("images")}
+            onUploadStart={this.handleUploadStart}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
+          /> */}
           <div htmlFor="file" className="filedisplay" style={{marginTop:"-17px", marginLeft:"1px", textAlign:"right"}}>{file}</div>
           </div>
           <span style={{color: "red",marginTop:"-10px"}}>{this.state.errors["file"]}</span>
