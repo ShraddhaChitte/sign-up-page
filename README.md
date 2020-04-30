@@ -7,3 +7,5 @@ In my-app, npm install react-responsive
 Im my-app, npm install react-router-dom
 
 In src, npm install bootstrap
+
+In my-app, npm install react-firebase-file-uploader
