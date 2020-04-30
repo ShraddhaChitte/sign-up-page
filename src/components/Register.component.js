@@ -217,7 +217,7 @@ import FileUploader from "react-firebase-file-uploader";
     this.setState({ avatar: filename, progress: 100, isUploading: false });
     firebase
       .storage()
-      .ref("images")
+      .ref("files")
       .child(filename)
       .getDownloadURL()
       .then(url => this.setState({ avatarURL: url }));
@@ -341,7 +341,7 @@ import FileUploader from "react-firebase-file-uploader";
             accept="file/*"
             name="avatar"
             randomizeFilename
-            storageRef={firebase.storage().ref("images")}
+            storageRef={firebase.storage().ref("files")}
             onUploadStart={this.handleUploadStart}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
