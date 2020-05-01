@@ -161,10 +161,15 @@ import FileUploader from "react-firebase-file-uploader";
     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.txt|\.pdf|\.JPEG|\.JPG|\.doc|\.docx)$/i;
     if(!allowedExtensions.exec(filePath)) 
   {
-     
          formIsValid = false;
          errors["file"] = "Please upload a valid file(.txt, .jpeg, .jpg, .JPG, .doc)";
        }
+       var fileInput =  
+        document.getElementById('file'); 
+      
+    var filePath = fileInput.value; 
+  
+   
      }
 
      this.setState({errors: errors});
@@ -207,9 +212,27 @@ import FileUploader from "react-firebase-file-uploader";
      }
   };
 
+   fileValidation() { 
+    var fileInput =  
+        document.getElementById('file'); 
+      
+    var filePath = fileInput.value; 
+  
+    // Allowing file type 
+    var allowedExtensions =  
+            /(\.jpg|\.jpeg|\.png|\.txt|\.pdf|\.JPEG|\.JPG|\.doc|\.docx)$/i; 
+      
+    if (!allowedExtensions.exec(filePath)) { 
+        alert('Invalid file type'); 
+        fileInput.value = ''; 
+        return false; 
+    }  
+  }
+
   handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
   handleProgress = progress => this.setState({ progress });
   handleUploadError = error => {
+    
     this.setState({ isUploading: false });
     console.error(error);
   };
@@ -336,20 +359,30 @@ import FileUploader from "react-firebase-file-uploader";
   // name="selectedFile" 
 //  onChange={  (event) => this.onChange(event)} 
  // onChange={this.handleChange.bind(this, "file")} 
+
+//  var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.txt|\.pdf|\.JPEG|\.JPG|\.doc|\.docx)$/i;
+
+
  value={this.state.fields["file"]} 
             required
-            accept="file/*"
+            accept=".docx,.pdf,.jpg,.jpeg,.png,.txt,.JPEG,.JPG,.doc"
             name="avatar"
-            randomizeFilename
+            restrictions={{
+              allowedExtensions: [ '.jpg', '.png', '.docx', '.pdf','.jpeg','.txt','.JPEG','.JPG', '.doc']
+          }}
+            multiple={false}
+            // randomizeFilename
             storageRef={firebase.storage().ref("files")}
             onUploadStart={this.handleUploadStart}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
             onProgress={this.handleProgress}
+            onchange={this.fileValidation}
           />
 
           <label style={{marginBottom:"1px"}} 
            onChange={this.handleChange.bind(this, "file")} 
+
             className="form-control form-control-sm custfile custom-file-label"
             htmlFor="validatedCustomFile" placeholder="Your Id Proof" 
           >
@@ -366,8 +399,15 @@ import FileUploader from "react-firebase-file-uploader";
           /> */}
           </label>
 
-          {/* {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
-          {this.state.avatarURL && <img src={this.state.avatarURL} />} */}
+          {/* {this.state.isUploading && <p>Progress: {this.state.progress}</p>} */}
+          {/* {this.state.avatarURL && <img src={this.state.avatarURL} />} */}
+
+         
+
+          <div htmlFor="file" className="filedisplay" style={{marginTop:"-8px", marginLeft:"1px", textAlign:"right", fontSize:"12px"}}> {this.state.avatar}</div>
+          </div>
+          <span style={{color: "red",marginTop:"-10px"}}>{this.state.errors["file"]}</span>
+
           {/* <FileUploader
             accept="file/*"
             name="avatar"
@@ -378,15 +418,15 @@ import FileUploader from "react-firebase-file-uploader";
             onUploadSuccess={this.handleUploadSuccess}
             onProgress={this.handleProgress}
           /> */}
-          <div htmlFor="file" className="filedisplay" style={{marginTop:"-17px", marginLeft:"1px", textAlign:"right"}}>{file}</div>
+          {/* <div htmlFor="file" className="filedisplay" style={{marginTop:"-17px", marginLeft:"1px", textAlign:"right"}}>{file}</div> */}
           </div>
-          <span style={{color: "red",marginTop:"-10px"}}>{this.state.errors["file"]}</span>
+          
 
 
           {/* <div className="fileDisplay" htmlfor="file" style={{paddingBottom:"50px"}} >
   {file}
 </div> */}
-          </div>
+          {/* </div> */}
 
 
     
