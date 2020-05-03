@@ -27,62 +27,30 @@
 
 
 import React from 'react';
-import MediaQuery from 'react-responsive'
+// import MediaQuery from 'react-responsive'
+// import firebase from 'firebase';
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import Upload from "./deleteupload"
+// import Login from "./Pages/Counselors";
+import Counselors from "./Pages/Counselors";
+// import Activists from "./Pages/Activists";
 
-import Login from "./components/Register.component";
 // import SignUp from "./components/signup.component";
 // import CounselorInfo from "./components/CounselorInfo";
 
 function App() {
   return (<Router>
     <div className="App">
-      <nav className=" navbar-expand-lg navbar-light fixed-top">
-        <div className="container">
-          <h4><b>Join our Network of Top Expert Child and Parent Counselors!</b></h4>
-          {/* <Link className="navbar-brand" to={"/sign-in"}>positronX.io</Link> */}
-          {/* <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-in"}>Login</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-              </li>
-            </ul>
-          </div> */}
-        </div>
-      </nav>
-
-      <div className="BackNav">
-      <nav className=" navbar-expand-lg navbar-dark fixed-top">
-        <div className="Darkcontainer">
-      <a href="#">&#x3c;<span></span>Back</a>
-      </div>
-</nav>
-      </div>
-
-      {/* <div className="auth-wrapper"> */}
+        <Switch>
+          {/* <Route path="/activities" component={Activists} />{" "} */}
+          <Route path="/" component={Counselors} />{" "}
+        </Switch>{" "}
+      </div>{" "}
       
-        <div>
-          {/* <Switch> */}
-          
-            <Route exact path='/' component={Login} />
-         
-            {/* <Route path="/sign-in" component={Login} /> */}
-            {/* <Route path="/sign-up" component={SignUp} /> */}
-          {/* </Switch> */}
-        </div>
-      </div>
-      
-      {/* <div className="info-wrapper">
-      <div className="CInfo">
-      <Route exact path='/' component={CounselorInfo} />
-      </div> */}
-     {/* </div> */}
-    {/* </div> */}
+     
     </Router>
   );
 }
