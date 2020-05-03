@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+// import "../css/Counselors.css";
 
 import FileUploader from "react-firebase-file-uploader";
 
- class Login extends Component {
+ class Counselors extends Component {
   constructor(props){
     super(props);
 
@@ -255,7 +256,45 @@ import FileUploader from "react-firebase-file-uploader";
          ? ( <span>{fileName}</span>) 
     : ( <span></span> );
         return (
-
+          <div className="App">
+          <nav className=" navbar-expand-lg navbar-light fixed-top">
+            <div className="container">
+              <h4><b>Join our Network of Top Expert Child and Parent Counselors!</b></h4>
+              {/* <Link className="navbar-brand" to={"/sign-in"}>positronX.io</Link> */}
+              {/* <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/sign-in"}>Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
+                  </li>
+                </ul>
+              </div> */}
+            </div>
+          </nav>
+    
+          <div className="BackNav">
+          <nav className=" navbar-expand-lg navbar-dark fixed-top">
+            <div className="Darkcontainer">
+          <a href="#">&#x3c;<span></span>Back</a>
+          </div>
+    </nav>
+          </div>
+    
+          {/* <div className="auth-wrapper"> */}
+          
+            <div>
+              {/* <Switch> */}
+              
+                {/* <Route exact path='/' component={Login} /> */}
+                {/* <Route exact path='/' component={Upload} /> */}
+             
+                {/* <Route path="/sign-in" component={Login} /> */}
+                {/* <Route path="/sign-up" component={SignUp} /> */}
+              {/* </Switch> */}
+            </div>
+        
 <div className="Counselor">
     
 <div class="Siderow">
@@ -450,9 +489,9 @@ import FileUploader from "react-firebase-file-uploader";
   </div>
  </div>
 </div>
-
+</div>
            
         );
     }
 }
-export default Login;
+export default Counselors;
